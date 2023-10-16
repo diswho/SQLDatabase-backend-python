@@ -1,6 +1,5 @@
 from fastapi import Depends, APIRouter
 from app import schemas
-# from app.schemas.item import Item, ItemCreate
 from sqlalchemy.orm import Session
 from app.api.deps import get_db
 from app import crud
@@ -12,7 +11,6 @@ router = APIRouter()
 def create_item_for_user(
     user_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)
 ):
-    print(" --- * --- ", type(item))
     return crud.item.create_user_item(db=db, item=item, user_id=user_id)
     # return user.create_user_item(db=db, item=item, user_id=user_id)
 

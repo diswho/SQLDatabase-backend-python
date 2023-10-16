@@ -1,5 +1,5 @@
 from app.schemas.item import Item
-from pydantic import BaseModel, EmailStr, ConfigDict
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 
@@ -20,10 +20,6 @@ class UserInDBBase(UserBase):
     is_active: bool
     items: list[Item] = []
     model_config = ConfigDict(from_attributes=True)
-
-    # class Config:
-    #     orm_mode = True
-# Additional properties to return via API
 
 
 class User(UserInDBBase):

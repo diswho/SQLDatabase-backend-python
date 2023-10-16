@@ -1,4 +1,7 @@
 fastapi==0.103.2
+passlib==1.7.4
 pydantic==2.4.2
+python_jose==3.3.0
 SQLAlchemy==2.0.22
-uvicorn==0.23.2
+python-jose==3.3.0
+pipreqs==0.4.13

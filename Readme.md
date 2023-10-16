@@ -11,7 +11,11 @@ pip install pipreqs
 ```
 
 ```sh
-pipreqs C:\Users\phuong\Documents\Workspaces\Python\SQLDatabase --force
+pipreqs C:\Users\phuong\Documents\Workspaces\Python\SQLDatabase-backend-python --force
+```
+
+```sh
+pip freeze > requirements01.txt
 ```
 
 ```sh
