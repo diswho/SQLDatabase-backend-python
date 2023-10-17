@@ -7,21 +7,38 @@ from app.schemas.user import UserCreate
 from app.db.base import Base
 from app.db.session import engine
 # from app.db.database import engine
+from app.core.config import settings
 
 
 def init_db(db: Session) -> None:
-    FIRST_SUPERUSER = "vientiane@vientiane.com"
-    FIRST_SUPERUSER_PASSWORD = "vientiane"
+    settings.FIRST_SUPERUSER = "vientiane@vientiane.com"
+    settings.FIRST_SUPERUSER_PASSWORD = "vientiane"
     Base.metadata.create_all(bind=engine)
-    user = crud.user.get_user_by_email(db, email=FIRST_SUPERUSER)
+    user = crud.user.get_user_by_email(db, email=settings.FIRST_SUPERUSER)
     # user = crud.get_user_by_email(db, email=FIRST_SUPERUSER)
     if not user:
         user_in = UserCreate(
-            email=FIRST_SUPERUSER,
-            password=FIRST_SUPERUSER_PASSWORD,
+            email=settings.FIRST_SUPERUSER,
+            password=settings.FIRST_SUPERUSER_PASSWORD,
             is_superuser=True,
         )
-        user = crud.user.create_user(db=db, user=user_in)
+        try:
+            user = crud.user.create_user(db=db, user=user_in)
+        except TypeError:
+            print("====== TypeError")
+        except KeyError:
+            print("====== KeyError")
+        except NameError:
+            print("====== NameError")
+        except IndexError:
+            print("====== IndexError")
+        except MemoryError:
+            print("====== MemoryError")
+        except ValueError:
+            print("====== ValueError")
+        except:
+            print("====== Error")
+
         # user = crud.create_user(db=db, user=user_in)
     else:
         print("====== User Exist")

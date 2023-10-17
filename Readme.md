@@ -11,7 +11,7 @@ pip install pipreqs
 ```
 
 ```sh
-pipreqs C:\Users\phuong\Documents\Workspaces\Python\SQLDatabase-backend-python --force
+pipreqs p --force
 ```
 
 ```sh

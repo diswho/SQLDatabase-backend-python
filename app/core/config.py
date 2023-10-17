@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 48
     PROJECT_NAME: str
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
+    FIRST_SUPERUSER: str
+    FIRST_SUPERUSER_PASSWORD: str
 
     model_config = SettingsConfigDict(env_file=".env")
 
