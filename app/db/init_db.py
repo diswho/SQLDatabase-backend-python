@@ -8,8 +8,8 @@ from app.core.config import settings
 
 
 def init_db(db: Session) -> None:
-    settings.FIRST_SUPERUSER = "vientiane@vientiane.com"
-    settings.FIRST_SUPERUSER_PASSWORD = "vientiane"
+    # settings.FIRST_SUPERUSER = "vientiane@vientiane.com"
+    # settings.FIRST_SUPERUSER_PASSWORD = "vientiane"
     Base.metadata.create_all(bind=engine)
     user = crud_user.get_by_email(db, email=settings.FIRST_SUPERUSER)
     if not user:

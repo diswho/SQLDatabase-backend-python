@@ -10,11 +10,6 @@ class UserBase(BaseModel):
     full_name: Optional[str] = None
 
 
-class UserLogin(BaseModel):
-    username: Optional[EmailStr] = None
-    password: Optional[str] = None
-
-
 class UserCreate(UserBase):
     email: EmailStr
     password: str
@@ -26,7 +21,7 @@ class UserUpdate(UserBase):
 
 class UserInDBBase(UserBase):
     id: int
-    is_active: bool
+    # is_active: bool
     items: List[Item] = []
     model_config = ConfigDict(from_attributes=True)
 

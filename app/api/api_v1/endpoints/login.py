@@ -14,13 +14,18 @@ router = APIRouter()
 
 
 @router.post("/login/access-token", response_model=schemas.Token)
-def login_access_token(db: Session = Depends(deps.get_db), form_data: OAuth2PasswordRequestForm = Depends()) -> Any:
-# def login_access_token(user: schemas.UserLogin, db: Session = Depends(deps.get_db), ) -> Any:
+# def login_access_token(db: Session = Depends(deps.get_db), form_data: OAuth2PasswordRequestForm = Depends()) -> Any:
+def login_access_token(
+        username: str = Body(None),
+        password: str = Body(None),
+        db: Session = Depends(deps.get_db)) -> Any:
     """
     OAuth2 compatible token login, get an access token for future requests
     """
-    user = crud_user.authenticate(db=db, email=form_data.username, password=form_data.password)
-    # user = crud_user.authenticate(db=db, email=user.username, password=user.password)
+    # user = crud_user.authenticate(
+    #     db=db, email=form_data.username, password=form_data.password)
+    user = crud_user.authenticate(
+        db=db, email=username, password=password)
     if not user:
         raise HTTPException(
             status_code=400, detail="Incorrect email or password")
