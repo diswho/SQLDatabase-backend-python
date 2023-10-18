@@ -3,7 +3,7 @@ from pydantic import BaseModel, ConfigDict
 
 class ItemBase(BaseModel):
     title: str
-    description: str  = None
+    description: str = None
 
 
 class ItemCreate(ItemBase):
@@ -16,9 +16,14 @@ class ItemUpdate(ItemBase):
 
 class ItemInDBBase(ItemBase):
     id: int
+    title: str
     owner_id: int
     model_config = ConfigDict(from_attributes=True)
 
 
 class Item(ItemInDBBase):
+    pass
+
+
+class ItemInDB(ItemInDBBase):
     pass

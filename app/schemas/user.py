@@ -1,6 +1,6 @@
 from app.schemas.item import Item
 from pydantic import BaseModel, ConfigDict, EmailStr
-from typing import Optional,List
+from typing import Optional, List
 
 
 class UserBase(BaseModel):
@@ -8,6 +8,11 @@ class UserBase(BaseModel):
     is_active: Optional[bool] = True
     is_superuser: bool = False
     full_name: Optional[str] = None
+
+
+class UserLogin(BaseModel):
+    username: Optional[EmailStr] = None
+    password: Optional[str] = None
 
 
 class UserCreate(UserBase):
@@ -28,3 +33,7 @@ class UserInDBBase(UserBase):
 
 class User(UserInDBBase):
     pass
+
+
+class UserInDB(UserInDBBase):
+    hashed_password: str

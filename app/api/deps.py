@@ -2,6 +2,7 @@ from app.db.session import SessionLocal
 from fastapi import Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app import crud, model, schemas
+from app.crud import crud_user
 from fastapi.security import OAuth2PasswordBearer
 from app.core.config import settings
 from jose import jwt
@@ -34,7 +35,7 @@ def get_current_user(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Could not validate credentials",
         )
-    user = crud.user.get(db, id=token_data.sub)
+    user = crud_user.get_user(db, user_id=token_data.sub)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
@@ -43,7 +44,7 @@ def get_current_user(
 def get_current_active_user(
     current_user: model.User = Depends(get_current_user),
 ) -> model.User:
-    if not crud.user.is_active(current_user):
+    if not crud_user.is_active(current_user):
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
@@ -51,7 +52,7 @@ def get_current_active_user(
 def get_current_active_superuser(
     current_user: model.User = Depends(get_current_user),
 ) -> model.User:
-    if not crud.user.is_superuser(current_user):
+    if not crud_user.is_superuser(current_user):
         raise HTTPException(
             status_code=400, detail="The user doesn't have enough privileges"
         )

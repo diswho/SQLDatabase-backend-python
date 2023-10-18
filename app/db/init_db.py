@@ -16,22 +16,11 @@ def init_db(db: Session) -> None:
         user_in = UserCreate(
             email=settings.FIRST_SUPERUSER,
             password=settings.FIRST_SUPERUSER_PASSWORD,
-            is_superuser=True,
+            full_name=settings.FIRST_SUPERUSER,
+            is_superuser=True
         )
         try:
             user = crud_user.create(db=db, user=user_in)
-        except TypeError:
-            print("====== TypeError")
-        except KeyError:
-            print("====== KeyError")
-        except NameError:
-            print("====== NameError")
-        except IndexError:
-            print("====== IndexError")
-        except MemoryError:
-            print("====== MemoryError")
-        except ValueError:
-            print("====== ValueError")
         except:
             print("====== Error")
     else:

@@ -11,7 +11,8 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
     EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 48
     PROJECT_NAME: str
-    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
+    BACKEND_CORS_ORIGINS: List[str] = []
+    # BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
     FIRST_SUPERUSER: str
     FIRST_SUPERUSER_PASSWORD: str
 

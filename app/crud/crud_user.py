@@ -7,7 +7,8 @@ from app.core.security import get_password_hash, verify_password
 
 
 def create(db: Session, user: UserCreate) -> Optional[User]:
-    fake_hashed_password = user.password + "notreallyhashed"
+    # fake_hashed_password = user.password + "notreallyhashed"
+    # print("====== create User")
     db_user = User(email=user.email,
                    hashed_password=get_password_hash(user.password),
                    full_name=user.full_name,
