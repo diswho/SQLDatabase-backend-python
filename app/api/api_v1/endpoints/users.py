@@ -63,6 +63,7 @@ def update_user_me(
     Update own user.
     """
     current_user_data = jsonable_encoder(current_user)
+    # user_in = schemas.UserInDB(**current_user_data)
     user_in = schemas.UserUpdate(**current_user_data)
     if password is not None:
         user_in.password = password
@@ -70,6 +71,8 @@ def update_user_me(
         user_in.full_name = full_name
     if email is not None:
         user_in.email = email
+    # print("======== current_user_data:",current_user_data)
+    # print("======== user_in:",user_in)
     user = crud_user.update(db, db_obj=current_user, obj_in=user_in)
     return user
 

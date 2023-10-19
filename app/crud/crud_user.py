@@ -4,11 +4,10 @@ from sqlalchemy.orm import Session
 from app.model.user import User
 from app.schemas import UserCreate, UserUpdate
 from app.core.security import get_password_hash, verify_password
+from fastapi.encoders import jsonable_encoder
 
 
 def create(db: Session, user: UserCreate) -> Optional[User]:
-    # fake_hashed_password = user.password + "notreallyhashed"
-    # print("====== create User")
     db_user = User(email=user.email,
                    hashed_password=get_password_hash(user.password),
                    full_name=user.full_name,
@@ -23,18 +22,33 @@ def get_by_email(db: Session, email: str) -> Optional[User]:
     return db.query(User).filter(User.email == email).first()
 
 
-def update(
-    db: Session, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]
-) -> User:
+def update(db: Session, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]) -> User:
+    print("------- 01 -------")
     if isinstance(obj_in, dict):
         update_data = obj_in
     else:
         update_data = obj_in.dict(exclude_unset=True)
-    if update_data["password"]:
+    print("------- 02 -------")
+    if obj_in.password is not None:
+    # if update_data["password"]:
         hashed_password = get_password_hash(update_data["password"])
         del update_data["password"]
         update_data["hashed_password"] = hashed_password
-    return update(db, db_obj=db_obj, obj_in=update_data)
+    print("------- 03 -------")
+    obj_data = jsonable_encoder(db_obj)
+    print("------- 04 -------")
+    if isinstance(obj_in, dict):
+        update_data01 = obj_in
+    else:
+        update_data01 = obj_in.dict(exclude_unset=True)
+    for field in obj_data:
+        if field in update_data01:
+            setattr(db_obj, field, update_data01[field])
+    db.add(db_obj)
+    db.commit()
+    db.refresh(db_obj)
+    return db_obj
+    # return update(db, db_obj=db_obj, obj_in=update_data)
 
 
 def authenticate(db: Session,  email: str, password: str) -> Optional[User]:

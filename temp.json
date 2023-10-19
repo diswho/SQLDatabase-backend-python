@@ -1,0 +1,8 @@
+{
+    {'full_name': 'vientiane@vientiane.com', 'email': 'vientiane@vientiane.com', 'is_active': True, 'id': 1, 'hashed_password': '$2b$12$8qJjGNY6a5esfcj3ZS5qeOUrHlhjULnNaIOHnELi4hFZ4xdfh438u', 'is_superuser': True
+    },
+    {email='vientiane@vientiane.com' is_active=True is_superuser=True full_name='vientiane Lao PDR' password=None
+    },
+    {'email': 'vientiane@vientiane.com', 'is_active': True, 'is_superuser': True, 'full_name': 'vientiane Lao PDR'
+    }
+}

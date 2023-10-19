@@ -3,5 +3,13 @@
     "editor.defaultFormatter": "ms-python.autopep8"
   },
   "python.formatting.provider": "none",
-  "sqltools.connections": []
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "database": "${workspaceFolder:SQLDatabase-backend-python}/sql_app.db",
+      "name": "Localhost"
+    }
+  ],
+  "sqltools.useNodeRuntime": true
 }
