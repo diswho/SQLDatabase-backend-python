@@ -87,7 +87,7 @@ def update_user(
     """
     Update a user.
     """
-    user = crud_user.get(db, id=user_id)
+    user = crud_user.get_user(db, user_id=user_id)
     if not user:
         raise HTTPException(
             status_code=404,

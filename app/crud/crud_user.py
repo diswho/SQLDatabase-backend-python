@@ -23,27 +23,23 @@ def get_by_email(db: Session, email: str) -> Optional[User]:
 
 
 def update(db: Session, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]) -> User:
-    print("------- 01 -------")
     if isinstance(obj_in, dict):
         update_data = obj_in
     else:
         update_data = obj_in.dict(exclude_unset=True)
-    print("------- 02 -------")
     if obj_in.password is not None:
-    # if update_data["password"]:
+        # if update_data["password"]:
         hashed_password = get_password_hash(update_data["password"])
         del update_data["password"]
         update_data["hashed_password"] = hashed_password
-    print("------- 03 -------")
     obj_data = jsonable_encoder(db_obj)
-    print("------- 04 -------")
-    if isinstance(obj_in, dict):
-        update_data01 = obj_in
-    else:
-        update_data01 = obj_in.dict(exclude_unset=True)
+    # if isinstance(obj_in, dict):
+    #     update_data01 = obj_in
+    # else:
+    #     update_data01 = obj_in.dict(exclude_unset=True)
     for field in obj_data:
-        if field in update_data01:
-            setattr(db_obj, field, update_data01[field])
+        if field in update_data:
+            setattr(db_obj, field, update_data[field])
     db.add(db_obj)
     db.commit()
     db.refresh(db_obj)
